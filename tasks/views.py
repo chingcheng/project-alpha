@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from tasks.forms import TaskForm
+from tasks.models import Task
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -17,4 +18,13 @@ def create_task(request):
         "form": form
     }
 
-    return render(request, "tasks/create_task.html", context)
+    return render(request, "tasks/create.html", context)
+
+
+@login_required
+def show_my_tasks(request):
+    tasks_list = Task.objects.all()
+    context = {
+        "tasks_list": tasks_list
+    }
+    return render(request, "tasks/list.html", context)

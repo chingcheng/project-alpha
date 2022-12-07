@@ -37,4 +37,4 @@ def create_project(request):
         "form": form
     }
 
-    return render(request, "projects/create_project.html", context)
+    return render(request, "projects/create.html", context)
