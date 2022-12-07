@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from accounts.forms import LogInForm, SignUpForm
 
+
 # Create your views here.
 def user_login(request):
     if request.method == "POST":
@@ -16,15 +17,17 @@ def user_login(request):
                 return redirect("home")
     else:
         form = LogInForm()
-    context = {
-        "form": form,
-    }
+
+    context = {"form": form}
+
     return render(request, "accounts/login.html", context)
 
 
 def user_logout(request):
     logout(request)
+
     return redirect("login")
+
 
 def user_signup(request):
     if request.method == "POST":
@@ -33,7 +36,6 @@ def user_signup(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             password_confirmation = form.cleaned_data["password_confirmation"]
-
             if password == password_confirmation:
                 user = User.objects.create_user(
                     username,
@@ -45,5 +47,7 @@ def user_signup(request):
                 form.add_error("the passwords do not match")
     else:
         form = SignUpForm()
+
     context = {"form": form}
+
     return render(request, "accounts/signup.html", context)

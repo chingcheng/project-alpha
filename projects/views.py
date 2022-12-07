@@ -15,9 +15,7 @@ def list_projects(request):
 @login_required
 def show_project(request, id):
     project_details = get_object_or_404(Project, id=id)
-    context = {
-        "project_details": project_details
-    }
+    context = {"project_details": project_details}
 
     return render(request, "projects/detail.html", context)
 
@@ -33,8 +31,6 @@ def create_project(request):
             return redirect("list_projects")
     else:
         form = ProjectForm()
-    context = {
-        "form": form
-    }
+    context = {"form": form}
 
     return render(request, "projects/create.html", context)
